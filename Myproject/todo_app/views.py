@@ -4,6 +4,12 @@ from .models import Task
 
 def task_lisk(request):
     tasks=Task.objects.all()
+    completed=request.GET.get("completed")
+    if completed =='1':
+        tasks=tasks.filter(completed=True)
+    elif completed=='0':
+        tasks=tasks.filter(completed=False)
+
     return render(request,'task_list.html',{"tasks":tasks})
 
 def task_details(request, pk):
